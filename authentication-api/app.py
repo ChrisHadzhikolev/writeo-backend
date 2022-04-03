@@ -1,9 +1,8 @@
 import jwt, os
 from dotenv import load_dotenv
 from flask import Flask, request, jsonify
-from save_image import save_pic
-from validate import validate_book, validate_email_and_password, validate_user
-from models import Books, User
+from validate import validate_email_and_password, validate_user
+from models import User
 from auth_middleware import token_required
 
 load_dotenv()
