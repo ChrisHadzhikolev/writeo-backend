@@ -27,9 +27,9 @@ class ConfigService {
       type: (this.getValue('AUTH_DB_TYPE') as any) || 'mysql',
       port: parseInt(this.getValue('AUTH_DB_PORT')) || 3306,
       host: this.getValue('AUTH_DB_HOST') || 'localhost',
-      username: this.getValue('USERS_DB_USERNAME') || 'root',
-      password: this.getValue('USERS_DB_PASSWORD') || '',
-      database: this.getValue('USERS_DB_NAME') || 'ausers',
+      username: this.getValue('AUTH_DB_USERNAME') || 'root',
+      password: this.getValue('AUTH_DB_PASSWORD') || '',
+      database: this.getValue('AUTH_DB_NAME') || 'auser',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
       cli: {
@@ -44,7 +44,6 @@ const configService = new ConfigService(process.env).ensureValues([
   'AUTH_DB_HOST',
   'AUTH_DB_PORT',
   'AUTH_DB_USERNAME',
-  'AUTH_DB_PASSWORD',
   'AUTH_DB_NAME',
 ]);
 
