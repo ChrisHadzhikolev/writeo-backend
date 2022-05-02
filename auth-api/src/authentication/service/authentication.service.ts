@@ -8,23 +8,19 @@ const bcrypt = require('bcryptjs');
 export class AuthenticationService {
   constructor(private readonly jwtService: JwtService) {}
 
-  generateJWT(user): Observable<string> {
-    return from(
-      this.jwtService.signAsync(
-        { user },
-        { secret: process.env.JWT_SECRET, expiresIn: '1d' },
-      ),
+  generateJWT(user): Promise<string> {
+    return this.jwtService.signAsync(
+      { user },
+      { secret: process.env.JWT_SECRET, expiresIn: '1d' },
     );
   }
 
-  async hashSaltPassword(password: string) {
+  async hashSaltPassword(password: string): Promise<string> {
     const saltRounds = 10;
-    bcrypt.hash(password, saltRounds, function (err, hash) {
-      return hash;
-    });
+    return bcrypt.hash(password, saltRounds);
   }
 
-  comparePasswords(password: string, passwordHash: string): Observable<any> {
-    return from(bcrypt.compare(password, passwordHash));
+  comparePasswords(password: string, passwordHash: string): Promise<boolean> {
+    return bcrypt.compare(password, passwordHash);
   }
 }
