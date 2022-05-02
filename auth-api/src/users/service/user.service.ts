@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { map } from 'rxjs/operators';
 import { AuthenticationService } from '../../authentication/service/authentication.service';
 import { User } from '../../database/entities/user.entity';
 import { v4 as uuidv4 } from 'uuid';
 import { UserDto } from '../models/user.dto';
 import { IUser } from '../interface/IUser';
+import { Role } from '../../authentication/enum/roles.enum';
 
 @Injectable()
 export class UserService {
@@ -28,7 +28,7 @@ export class UserService {
     newUser.username = user.username;
     newUser.email = user.email;
     newUser.password = hashedPassword;
-    newUser.role = 'user';
+    newUser.role = Role.User;
 
     return this.userRepository.save(newUser).then((res) => {
       const { ...result } = res;
@@ -48,24 +48,14 @@ export class UserService {
   // @ts-ignore
   async deleteOne(id: string): Promise<boolean> {
     await this.userRepository
-      .delete(id)
-      .then(() => {
-        return true;
-      })
-      .catch(() => {
-        return false;
-      });
+        .delete(id)
+        .then(() => {
+          return true;
+        })
+        .catch(() => {
+          return false;
+        });
   }
-  //
-  // updateUser(id: string, user: User): Observable<T> {
-  //   delete user.email;
-  //   delete user.password;
-  //   delete user.role;
-  //
-  //   return from(this.userRepository.update(id, user)).pipe(
-  //     switchMap(() => this.findOne(id)),
-  //   );
-  // }
 
   async login(user: IUser): Promise<string> {
     const email = user.email;
@@ -77,7 +67,7 @@ export class UserService {
           userProfile.password,
         )
       ) {
-        return await this.authService.generateJWT(user);
+        return await this.authService.generateJWT(userProfile);
       } else {
         return 'Wrong Credentials';
       }
@@ -90,7 +80,7 @@ export class UserService {
     return this.userRepository.findOne({ email });
   }
 
-  async updateRole(role: string, id: string): Promise<boolean> {
+  async updateRole(role: Role, id: string): Promise<boolean> {
     if (role == 'admin' || role == 'user') {
       const userProfile = await this.userRepository.findOne(id);
       if (!userProfile) {

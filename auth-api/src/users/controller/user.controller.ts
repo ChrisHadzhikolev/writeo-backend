@@ -14,18 +14,17 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { hasRoles } from '../../authentication/decorators/role.decorator';
+import { hasRole } from '../../authentication/decorators/role.decorator';
 import { JwtAuthGuard } from '../../authentication/guards/jwt.guard';
 import { RolesGuard } from '../../authentication/guards/roles.guard';
 import { UserService } from '../service/user.service';
 import { User } from '../../database/entities/user.entity';
 import { UserDto } from '../models/user.dto';
 import { IUser } from '../interface/IUser';
-import { UserGuard } from '../../authentication/guards/user.guard';
-import { AdminGuard } from '../../authentication/guards/admin.guard';
 import { HttpExceptionFilter } from '../../filters/http-exception.filter';
 import { HttpResponseInterceptor } from '../../interceptors/http-response.interceptor';
 import { AuthExceptionInterceptor } from '../../interceptors/auth-exception.interceptor';
+import { Role } from '../../authentication/enum/roles.enum';
 
 @Controller('user')
 @UseFilters(new HttpExceptionFilter())
@@ -55,7 +54,7 @@ export class UserController {
     } else return { token: res };
   }
 
-  @hasRoles('admin')
+  @hasRole('admin')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Get(':id')
   async findUser(@Param() params): Promise<IUser> {
@@ -69,7 +68,7 @@ export class UserController {
     }
   }
 
-  @hasRoles('user')
+  @hasRole('user')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Get(':id/info')
   getInfo(@Param() params): Promise<IUser> {
@@ -79,7 +78,8 @@ export class UserController {
     });
   }
 
-  @hasRoles('admin')
+  @hasRole('admin')
+  @hasRole('user')
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
   async deleteOne(@Param('id') id: string) {
@@ -90,7 +90,7 @@ export class UserController {
     }
   }
 
-  @hasRoles('admin')
+  @hasRole(Role.Admin)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Put(':id/role')
   async updateUserRole(
@@ -104,8 +104,9 @@ export class UserController {
     }
   }
 
-  @hasRoles('user')
   @UseGuards(JwtAuthGuard, RolesGuard)
+  @hasRole('user')
+  @hasRole('admin')
   @Put(':id/password')
   async updateUserPassword(
     @Param('id') id: string,
@@ -124,7 +125,8 @@ export class UserController {
     }
   }
 
-  @hasRoles('admin')
+  @hasRole('admin')
+  @hasRole('user')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Put(':id/userInfo')
   updateInfo(@Param('id') id: string, @Body() user: IUser): Promise<IUser> {

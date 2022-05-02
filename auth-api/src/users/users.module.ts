@@ -4,6 +4,7 @@ import { AuthenticationModule } from '../authentication/authentication.module';
 import { UserController } from './controller/user.controller';
 import { User } from '../database/entities/user.entity';
 import { UserService } from './service/user.service';
+import {RolesGuard} from "../authentication/guards/roles.guard";
 
 @Module({
   imports: [
