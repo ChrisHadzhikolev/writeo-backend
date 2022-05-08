@@ -48,13 +48,13 @@ export class UserService {
   // @ts-ignore
   async deleteOne(id: string): Promise<boolean> {
     await this.userRepository
-        .delete(id)
-        .then(() => {
-          return true;
-        })
-        .catch(() => {
-          return false;
-        });
+      .delete(id)
+      .then(() => {
+        return true;
+      })
+      .catch(() => {
+        return false;
+      });
   }
 
   async login(user: IUser): Promise<string> {
