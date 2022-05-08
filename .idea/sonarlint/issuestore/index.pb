@@ -5,8 +5,6 @@ F
 	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 B
 messaging-api/.env,a\9\a93f0cf83f1e4da21c871222811dc0218468259a
-?
-rating-api/.env,b\d\bd42e65df18c01ab1dd32739faee0b70c792603d
 F
 article-api/Dockerfile,7\0\701765a2fcd1e203d9f94862db34e002d8ffb6f2
 L
