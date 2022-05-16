@@ -4,6 +4,7 @@ import {
   Delete,
   ForbiddenException,
   Get,
+  Inject,
   InternalServerErrorException,
   Param,
   Post,
@@ -21,13 +22,19 @@ import { Role } from '../../auth/enumerator/roles.enum';
 import { hasRole } from '../../auth/decorators/role.decorator';
 import { JwtAuthGuard } from '../../auth/guards/jwt.guard';
 import { RolesGuard } from '../../auth/guards/roles.guard';
+import { ClientProxy } from '@nestjs/microservices';
+import {RatingValue} from "../models/ratingValue.dto";
+import {take} from "rxjs";
 
 @Controller('article')
 @UseFilters(new HttpExceptionFilter())
 @UseInterceptors(HttpResponseInterceptor)
 @UseInterceptors(ArticleExceptionInterceptor)
 export class ArticleController {
-  constructor(private articleService: ArticleService) {}
+  constructor(
+    private articleService: ArticleService,
+    @Inject('RATING_SERVICE') private readonly client: ClientProxy,
+  ) {}
 
   @hasRole(Role.User)
   @UseGuards(JwtAuthGuard, RolesGuard)
@@ -60,6 +67,36 @@ export class ArticleController {
       throw new InternalServerErrorException('');
     }
   }
+  // @hasRole(Role.User)
+  // @UseGuards(JwtAuthGuard, RolesGuard)
+  @Get(':id/ratingValue')
+  async getArticleRating(@Param() id): Promise<unknown> {
+    return await this.articleService.getArticleValue(id).then((res) => {
+      return res;
+    });
+  }
+
+  @Get(':id/userRating')
+  async getUserRating(@Param() id): Promise<unknown> {
+    return await this.articleService.getUserRating(id).then((res) => {
+      return res;
+    });
+  }
+
+  @Put(':id/changeRating')
+  async changeRating(@Param() id): Promise<unknown> {
+    return await this.articleService.getArticleValue(id).then((res) => {
+      return res;
+    });
+  }
+
+  @Post(':id/newRating')
+  async createRating(@Param() id): Promise<unknown> {
+    return await this.articleService.getArticleValue(id).then((res) => {
+      return res;
+    });
+  }
+
 
   @hasRole(Role.User)
   @UseGuards(JwtAuthGuard, RolesGuard)
