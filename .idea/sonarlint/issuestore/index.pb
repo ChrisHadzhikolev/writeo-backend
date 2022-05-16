@@ -3,8 +3,6 @@ F
 article-api/.gitignore,3\b\3be3acd4c4df753e6c8c4a3954462180b3c0e320
 9
 	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
-B
-messaging-api/.env,a\9\a93f0cf83f1e4da21c871222811dc0218468259a
 F
 article-api/Dockerfile,7\0\701765a2fcd1e203d9f94862db34e002d8ffb6f2
 L
@@ -57,8 +55,6 @@ a
 1auth-api/src/authentication/guards/admin.guard.ts,9\e\9e4435955771a433c6c922a6b2bdb04343711a3f
 R
 "auth-api/src/users/users.module.ts,d\0\d0457cd0cdf13a89bae1efec81cf17864a3108b0
-h
-8article-api/src/article/controller/article.controller.ts,c\d\cd19deffb76eea05ed910a962bba3c124b94a4c9
 a
 1article-api/src/auth/decorators/role.decorator.ts,c\a\cabb96b59e3d40a483742c8ed8bff58169479842
 Z
@@ -75,7 +71,7 @@ S
 #article-api/src/auth/auth.module.ts,8\3\83443acaff056c0bf22c16baf3e17bec111c9ed1
 Y
 )article-api/src/auth/guards/user.guard.ts,6\3\638aae8fa406052732e6ccaf5123c8304a5a90cf
-M
-article-api/src/app.module.ts,0\6\062a636c88321c92963e1374799d9aee40483d03
 `
 0auth-api/src/users/controller/user.controller.ts,5\d\5d81e51acbc1c80ce4af9f70352b944c85de6c8a
+=
+auth-api/.env,8\0\809140c7941d1d635d4ce3afd39a194ad1a4450a
