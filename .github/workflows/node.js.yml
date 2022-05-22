@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - run: cd ./
+      - run: cd ./auth-api
       - run: ls
   build:
 
