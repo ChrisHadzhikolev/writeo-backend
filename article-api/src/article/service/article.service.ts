@@ -1,7 +1,7 @@
 import {
   Inject,
   Injectable,
-  InternalServerErrorException,
+  InternalServerErrorException, NotFoundException,
 } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -28,7 +28,6 @@ export class ArticleService {
         .pipe(take(1))
         .subscribe((res: any) => {
           if (res.statusCode == 200) {
-            console.log(res.data);
             resolve(res.data);
           } else {
             throw new InternalServerErrorException();
@@ -37,56 +36,52 @@ export class ArticleService {
     });
   }
 
-  async getUserRating(userId) {
+  async getUserRating(params) {
     return new Promise((resolve) => {
       this.client
-        .send('getUserRating', userId)
+        .send('getUserRating', params)
         .pipe(take(1))
         .subscribe((res: any) => {
-          if (res.statusCode == 200) {
-            console.log(res.data);
+          if (res.data) {
             resolve(res.data);
           } else {
-            throw new InternalServerErrorException();
+            throw new NotFoundException();
           }
         });
     });
   }
 
-  // TODO async createArticle(articleId) {
-  //   return new Promise((resolve) => {
-  //     this.client
-  //       .send('createRating', articleId)
-  //       .pipe(
-  //         take(1),
-  //       )
-  //       .subscribe((res: any) => {
-  //         if (res.statusCode == 200) {
-  //           console.log(res.data);
-  //           resolve(res.data);
-  //         } else {
-  //           throw new InternalServerErrorException();
-  //         }
-  //       });
-  //   });
-  // }
+  // TODO check if article exists
+  async createArticleRating(params) {
+    return new Promise((resolve) => {
+      this.client
+        .send('createRating', params)
+        .pipe(take(1))
+        .subscribe((res: any) => {
+          if (res.data) {
+            resolve(res.data);
+          } else {
+            throw new NotFoundException();
+          }
+        });
+    });
+  }
 
-  // TODO async changeRating(articleId) {
-  //   return new Promise((resolve) => {
-  //     this.client
-  //       .send('changeRating', articleId)
-  //       .pipe(
-  //         take(1),         )
-  //       .subscribe((res: any) => {
-  //         if (res.statusCode == 200) {
-  //           console.log(res.data);
-  //           resolve(res.data);
-  //         } else {
-  //           throw new InternalServerErrorException();
-  //         }
-  //       });
-  //   });
-  // }
+  //TODO check if article exists
+  async changeRating(params) {
+    return new Promise((resolve) => {
+      this.client
+        .send('changeRating', params)
+        .pipe(take(1))
+        .subscribe((res: any) => {
+          if (res.data) {
+            resolve(res.data);
+          } else {
+            throw new NotFoundException();
+          }
+        });
+    });
+  }
 
   async getArticleById(id: string) {
     return await this.articleRepository.findOne(id);

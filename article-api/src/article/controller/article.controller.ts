@@ -76,27 +76,26 @@ export class ArticleController {
     });
   }
 
-  @Get(':id/userRating')
-  async getUserRating(@Param() id): Promise<unknown> {
-    return await this.articleService.getUserRating(id).then((res) => {
+  @Get(':id/id/:userId/userId')
+  async getUserRating(@Param() params): Promise<unknown> {
+    return await this.articleService.getUserRating(params).then((res) => {
       return res;
     });
   }
 
-  @Put(':id/changeRating')
-  async changeRating(@Param() id): Promise<unknown> {
-    return await this.articleService.getArticleValue(id).then((res) => {
+  @Put(':id/changeRating/:userId/:rating')
+  async changeRating(@Param() params): Promise<unknown> {
+    return await this.articleService.changeRating(params).then((res) => {
       return res;
     });
   }
 
-  @Post(':id/newRating')
-  async createRating(@Param() id): Promise<unknown> {
-    return await this.articleService.getArticleValue(id).then((res) => {
+  @Post(':id/newRating/:userId/:rating')
+  async createRating(@Param() params): Promise<unknown> {
+    return await this.articleService.createArticleRating(params).then((res) => {
       return res;
     });
   }
-
 
   @hasRole(Role.User)
   @UseGuards(JwtAuthGuard, RolesGuard)
