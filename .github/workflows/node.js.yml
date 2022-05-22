@@ -10,6 +10,11 @@ on:
     branches: [ master ]
 
 jobs:
+  path:
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: cd auth-api 
   build:
 
     runs-on: ubuntu-latest
@@ -26,7 +31,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: cd auth-api
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
