@@ -33,18 +33,27 @@ export class RatingController {
   // @UseGuards(JwtAuthGuard, RolesGuard)
   // @Get()
   @EventPattern('createRating')
-  async createRating(data: Rating) {
-    return await this.ratingService.create(data);
+  async createRating(data) {
+    return await this.ratingService.create(
+      data.id,
+      data.userId,
+      data.rating,
+    );
   }
 
   @EventPattern('changeRating')
-  async changeRating(data: Rating) {
-    return await this.ratingService.changeRating(data);
+  async changeRating(data) {
+    console.log('data', data);
+    return await this.ratingService.changeRating(
+      data.id,
+      data.userId,
+      data.rating,
+    );
   }
 
   @EventPattern('getUserRating')
   async getUserRating(data) {
-    return await this.ratingService.getUserRating(data.articleId, data.userId);
+    return await this.ratingService.getUserRating(data.id, data.userId);
   }
 
   @MessagePattern('ratingValue')

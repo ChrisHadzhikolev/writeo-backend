@@ -12,21 +12,31 @@ export class RatingService {
     private readonly ratingRepository: Repository<Rating>,
   ) {}
 
-  async create(rating: Rating) {
-    if (await this.ratingRepository.findOne({ where: { user: rating.user } })) {
+  async create(articleId: string, userId: string, rating: number) {
+    console.log(articleId);
+    if (
+      await this.ratingRepository.findOne({
+        where: { user: userId, articleId: articleId },
+      })
+    ) {
       return null;
     }
-    return await this.ratingRepository.save(rating);
+    const ratingObj = new Rating();
+    ratingObj.rating = rating;
+    ratingObj.user = userId;
+    ratingObj.articleId = articleId;
+    console.log(articleId);
+    return await this.ratingRepository.save(ratingObj);
   }
 
-  async changeRating(rating: Rating) {
+  async changeRating(articleId: string, userId: string, rating: number) {
     const ratingObj = await this.ratingRepository.findOne({
-      where: { articleId: rating.articleId, user: rating.user },
+      where: { articleId: articleId, user: userId },
     });
     if (!ratingObj) {
       return null;
     }
-    ratingObj.rating = rating.rating;
+    ratingObj.rating = rating;
     return await this.ratingRepository.save(ratingObj);
   }
 

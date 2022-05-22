@@ -3,8 +3,6 @@ F
 article-api/.gitignore,3\b\3be3acd4c4df753e6c8c4a3954462180b3c0e320
 9
 	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
-F
-article-api/Dockerfile,7\0\701765a2fcd1e203d9f94862db34e002d8ffb6f2
 L
 article-api/development.yaml,5\2\5275a6841e95c86a8469c018a9542e15987fd64d
 K
@@ -53,8 +51,6 @@ N
 auth-api/src/config.service.ts,d\e\de3a71f64224776df784932bec4bd0bc8db379e1
 a
 1auth-api/src/authentication/guards/admin.guard.ts,9\e\9e4435955771a433c6c922a6b2bdb04343711a3f
-R
-"auth-api/src/users/users.module.ts,d\0\d0457cd0cdf13a89bae1efec81cf17864a3108b0
 a
 1article-api/src/auth/decorators/role.decorator.ts,c\a\cabb96b59e3d40a483742c8ed8bff58169479842
 Z
@@ -65,13 +61,27 @@ X
 +article-api/src/auth/guards/jwt-strategy.ts,1\2\12d4772604b7c5c09e4aad86ee3ceefdfef4f255
 Z
 *article-api/src/auth/guards/roles.guard.ts,4\0\404761364d0133637ea8db7fe5230d61d5530fb1
-d
-4auth-api/src/authentication/authentication.module.ts,f\5\f5dfe42cb76874ebdb4a8aebda2f7cad3671dd5f
 S
 #article-api/src/auth/auth.module.ts,8\3\83443acaff056c0bf22c16baf3e17bec111c9ed1
 Y
 )article-api/src/auth/guards/user.guard.ts,6\3\638aae8fa406052732e6ccaf5123c8304a5a90cf
-`
-0auth-api/src/users/controller/user.controller.ts,5\d\5d81e51acbc1c80ce4af9f70352b944c85de6c8a
 =
 auth-api/.env,8\0\809140c7941d1d635d4ce3afd39a194ad1a4450a
+4
+.env,3\c\3c84dcdc6bbe3d7817c49dcdc327b926fea1808a
+c
+3article-api/src/database/entities/article.entity.ts,9\e\9e79b1511df9a24e16f14692534c535cd557d2fc
+]
+-article-api/src/article/models/article.dto.ts,8\8\88065a414d3f83817252f5c40c6d2feb1a318086
+a
+1article-api/src/article/models/ratingValue.dto.ts,d\9\d96305add1c242e9edcd70360cdf5a0b6d1a796a
+_
+/rating-api/src/rating/models/ratingValue.dto.ts,b\3\b3326dbf70ba1d03034674fe300f5d446a516770
+G
+rating-api/.envtemplate,2\2\22652f8f022ff295468f5008dde7c33ce1cc253b
+H
+article-api/.envtemplate,f\b\fbfeacb9b03cf3dd97cde783e2c8ae7da0a7e907
+@
+article-api/.env,c\d\cdd19635ac1845422cd0f05af56d8dc345897c5d
+?
+rating-api/.env,b\d\bd42e65df18c01ab1dd32739faee0b70c792603d
