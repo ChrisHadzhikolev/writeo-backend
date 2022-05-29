@@ -23,9 +23,7 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm install
-      working-directory: ./auth-api
-    - run: rimraf dist
+    - run: npm ci
       working-directory: ./auth-api
     - run: npm test
       working-directory: ./auth-api
