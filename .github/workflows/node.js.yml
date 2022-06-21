@@ -25,6 +25,8 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
       working-directory: ./auth-api
+    - run: npx webpack
+      working-directory: ./auth-api
     - run: npm run test:e2e
       working-directory: ./auth-api
     - run: npm test
