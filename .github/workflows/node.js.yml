@@ -27,13 +27,15 @@ jobs:
       working-directory: ./auth-api
     - run: npm run build
       working-directory: ./auth-api
-    - run: npm run test:e2e
-      working-directory: ./auth-api
+#     - run: npm run test:e2e
+#       working-directory: ./auth-api
     - run: npm install
       working-directory: ./article-api
     - run: npm run build
       working-directory: ./article-api
     - run: npm test
+      working-directory: ./article-api
+    - run: npm run test:e2e
       working-directory: ./article-api
     - run: npm install
       working-directory: ./rating-api
