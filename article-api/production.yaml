@@ -1,0 +1,70 @@
+replicaCount: 5
+
+image:
+  repository: krishum77/article-api
+  pullPolicy: Always
+  tag: 'latest'
+
+containerPort: 3066
+imagePullSecrets: []
+nameOverride: ''
+fullnameOverride: 'article-api'
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ''
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+service:
+  type: ClusterIP
+  port: 3067
+
+ingress:
+  enabled: true
+  className: ''
+  annotations:
+    kubernetes.io/ingres.class: 'nginx'
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    kubernetes.io/ingress.global-static-ip-name: b44-ip
+  hosts:
+    - host: 'writeo.local'
+      paths:
+        - path: /api/articles(/|$)(.*)
+          pathType: ImplementationSpecific
+  tls: []
+
+resources:
+  limits:
+    memory: '512Mi'
+    cpu: '750m'
+  requests:
+    memory: '300Mi'
+    cpu: '300m'
+
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 50
+  targetMemoryUtilizationPercentage: 50
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+database:
+  enabled: false
+  name: mysql-article
+  storage: 1G
+  storageClassName: standard
+  user: cjhfjhfo=
+  password: hfkjdhkuty49yet9ehkuhdg8rhdoh
+  dbName: aarticle

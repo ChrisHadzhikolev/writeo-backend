@@ -4,8 +4,7 @@ import {
   Delete,
   ForbiddenException,
   Get,
-  Inject,
-  InternalServerErrorException,
+  InternalServerErrorException, NotFoundException,
   Param,
   Post,
   Put,
@@ -22,9 +21,6 @@ import { Role } from '../../auth/enumerator/roles.enum';
 import { hasRole } from '../../auth/decorators/role.decorator';
 import { JwtAuthGuard } from '../../auth/guards/jwt.guard';
 import { RolesGuard } from '../../auth/guards/roles.guard';
-import { ClientProxy } from '@nestjs/microservices';
-import {RatingValue} from "../models/ratingValue.dto";
-import {take} from "rxjs";
 
 @Controller('article')
 @UseFilters(new HttpExceptionFilter())
@@ -33,7 +29,6 @@ import {take} from "rxjs";
 export class ArticleController {
   constructor(
     private articleService: ArticleService,
-    @Inject('RATING_SERVICE') private readonly client: ClientProxy,
   ) {}
 
   @hasRole(Role.User)
@@ -58,7 +53,7 @@ export class ArticleController {
         if (articleObj.authorId == id.aid) {
           return articleObj;
         } else {
-          throw new ForbiddenException();
+          throw new NotFoundException();
         }
       } else {
         return articleObj;
@@ -67,8 +62,8 @@ export class ArticleController {
       throw new InternalServerErrorException('');
     }
   }
-  // @hasRole(Role.User)
-  // @UseGuards(JwtAuthGuard, RolesGuard)
+  @hasRole(Role.User)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Get(':id/ratingValue')
   async getArticleRating(@Param() id): Promise<unknown> {
     return await this.articleService.getArticleValue(id).then((res) => {
@@ -76,6 +71,8 @@ export class ArticleController {
     });
   }
 
+  @hasRole(Role.User)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Get(':id/id/:userId/userId')
   async getUserRating(@Param() params): Promise<unknown> {
     return await this.articleService.getUserRating(params).then((res) => {
@@ -83,6 +80,8 @@ export class ArticleController {
     });
   }
 
+  @hasRole(Role.User)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Put(':id/changeRating/:userId/:rating')
   async changeRating(@Param() params): Promise<unknown> {
     return await this.articleService.changeRating(params).then((res) => {
@@ -90,6 +89,8 @@ export class ArticleController {
     });
   }
 
+  @hasRole(Role.User)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Post(':id/newRating/:userId/:rating')
   async createRating(@Param() params): Promise<unknown> {
     return await this.articleService.createArticleRating(params).then((res) => {

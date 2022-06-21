@@ -1,19 +1,32 @@
-replicaCount: 5
+replicaCount: 1
 
 image:
-  repository: krishum77/rating-api
-  pullPolicy: Always
-  tag: 'latest'
+  repository: ""
+  pullPolicy: ""
+  tag: ""
 
-containerPort: 3068
+containerPort: 3000
 imagePullSecrets: []
-nameOverride: ''
-fullnameOverride: 'rating-api'
+nameOverride: ""
+fullnameOverride: ""
+checks:
+  livenessProbe:
+    enabled: false
+    path: /
+    port: http
+    initialDelaySeconds: 5
+    periodSeconds: 5
+  readinessProbe:
+    enabled: false
+    path: /
+    port: http
+    initialDelaySeconds: 5
+    periodSeconds: 5
 
 serviceAccount:
   create: true
   annotations: {}
-  name: ''
+  name: ""
 
 podAnnotations: {}
 
@@ -23,29 +36,28 @@ securityContext: {}
 
 service:
   type: ClusterIP
-  port: 3068
+  port: 3000
 
 ingress:
   enabled: true
-  className: ''
+  className: ""
   annotations:
-    kubernetes.io/ingres.class: 'nginx'
+    kubernetes.io/ingres.class: nginx
     nginx.ingress.kubernetes.io/rewrite-target: /$2
-    kubernetes.io/ingress.global-static-ip-name: b44-ip
   hosts:
-    - host: 'writeo.local'
+    - host: ""
       paths:
-        - path: /api/rating(/|$)(.*)
+        - path: /
           pathType: ImplementationSpecific
   tls: []
 
 resources:
   limits:
-    memory: '512Mi'
-    cpu: '750m'
+    memory: "512Mi"
+    cpu: "500m"
   requests:
-    memory: '300Mi'
-    cpu: '300m'
+    memory: "256Mi"
+    cpu: "200m"
 
 autoscaling:
   enabled: true
@@ -62,9 +74,9 @@ affinity: {}
 
 database:
   enabled: false
-  name: mysql-rating
+  name: ""
   storage: 1G
   storageClassName: standard
-  user: cjhfjhfo=
-  password: hfkjdhkuty49yet9ehkuhdg8rhdoh
-  dbName: arating
+  user: ""
+  password: ""
+  dbName: ""

@@ -1,0 +1,51 @@
+{{- if .Values.database.enabled }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ .Values.database.name }}-secret
+type: Opaque
+data:
+  user: {{ .Values.database.user }}
+  password: {{ .Values.database.password }}
+{{- end }}
+---
+{{- if .Values.database.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.database.name }}-init-sql
+data:
+  init.sql: |-
+    CREATE DATABASE IF NOT EXISTS `{{ .Values.database.dbName }}`;
+{{- end }}
+---
+{{- if .Values.database.enabled }}
+apiVersion: kubedb.com/v1alpha2
+kind: MySQL
+metadata:
+  name: {{ .Values.database.name }}
+spec:
+  authSecret:
+    name: {{ .Values.database.name }}-secret
+  version: '8.0.3-v3'
+  storageType: Durable
+  storage:
+    storageClassName: {{ .Values.database.storageClassName }}
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: {{ .Values.database.storage }}
+  podTemplate:
+    spec:
+      args:
+        - --default-authentication-plugin=mysql_native_password
+      env:
+        - name: MYSQL_ROOT_HOST
+          value: '%'
+  terminationPolicy: Delete
+  init:
+    script:
+      configMap:
+        name: {{ .Values.database.name }}-init-sql
+{{- end }}

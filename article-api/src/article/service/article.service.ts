@@ -1,7 +1,8 @@
 import {
   Inject,
   Injectable,
-  InternalServerErrorException, NotFoundException,
+  InternalServerErrorException,
+  NotFoundException,
 } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -45,7 +46,7 @@ export class ArticleService {
           if (res.data) {
             resolve(res.data);
           } else {
-            throw new NotFoundException();
+            return null;
           }
         });
     });

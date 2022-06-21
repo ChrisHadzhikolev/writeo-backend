@@ -1,11 +1,11 @@
 FROM node:14 AS builder
 WORKDIR /app
-COPY ./auth-api/package.json ./
+COPY package*.json ./
 RUN npm install
-COPY ./auth-api/. .
-RUN curl -sfL https://install.goreleaser.com/github.com/tj/node-prune.sh | bash -s -- -b /usr/local/bin
+COPY . .
+#RUN #curl -sfL https://install.goreleaser.com/github.com/tj/node-prune.sh | bash -s -- -b /usr/local/bin
 RUN npm run build
-RUN npm prune --production
+#RUN #npm prune --production
 
 FROM node:14-alpine
 WORKDIR /app
