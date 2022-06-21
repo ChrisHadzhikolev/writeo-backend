@@ -12,8 +12,6 @@ H
 D
 auth-api/.prettierrc,d\a\dada8703c83bd379b90960ae1136b680ad2a543e
 E
-auth-api/package.json,c\2\c29cd7075b44d9a19fa014597f826213957c09cc
-E
 auth-api/.eslintrc.js,4\3\43e2e754c44b71ad2c85be4e141cfe2778fb9254
 H
 article-api/.eslintrc.js,7\c\7c9e6038145fb6fb3499b00cd24c9048979ec386
@@ -29,8 +27,6 @@ K
 auth-api/src/app.service.ts,0\0\0077eabc76c8910f16620d334901130873391193
 N
 auth-api/src/app.controller.ts,7\e\7eb02b01e755dfb3e93712b49b43977ab845771c
-S
-#auth-api/src/app.controller.spec.ts,1\a\1a85134667fcd8b25d2b07995d766e30e8ef4106
 ]
 -auth-api/src/filters/http-exception.filter.ts,3\a\3adce5d2a2ba94b27f1d102e31f623c8e9ec50a6
 g
